@@ -1,16 +1,18 @@
 import kaboom from "kaboom";
 
 const HEIGHT = window.innerHeight;
-const WIDTH = window.innerWidth;
+/* const WIDTH = window.innerWidth; */
 const MOVE_SPEED = 200;
 
 kaboom({
     debug: true,
-    width: WIDTH,
-    height: HEIGHT,
     stretch: false,
-    letterbox: true,
 });
+
+const bgImage = await loadSprite("background", "/assets/gfx/example.png");
+
+const background = add([sprite("background"), scale(1), fixed()]);
+background.scaleTo(Math.max(width() / bgImage.tex.width, height() / bgImage.tex.height));
 
 loadSprite("player", "/assets/gfx/player.svg");
 loadSprite("floor", "/assets/gfx/floor_0.png");
@@ -25,8 +27,12 @@ keyDown("left", () => {
     player.move(-MOVE_SPEED, 0);
 });
 
-addLevel(["        ", "        ", "xxxxxxxx"], {
-    width: MOVE_SPEED,
-    height: 80,
-    x: () => [sprite("floor"), solid(), area()],
+onKeyPress("up", () => {
+    player.jump(MOVE_SPEED * 2);
+});
+
+addLevel(["0000000000", "0000000000", "xxxxxxxxxx"], {
+    width: 200,
+    height: 100,
+    x: () => [sprite("floor"), solid(), area(), pos(0, HEIGHT - 250)],
 });
