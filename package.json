@@ -10,7 +10,8 @@
         "lint": "eslint src/**/*.ts",
         "lint:fix": "eslint --fix src/**/*.ts",
         "format": "prettier --write src/**/*.ts",
-        "format:check": "prettier --check src/**/*.ts"
+        "format:check": "prettier --check src/**/*.ts",
+        "prepare": "husky install"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.47.0",
@@ -26,11 +27,6 @@
     },
     "dependencies": {
         "kaboom": "^2000.2.10"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "yarn lint-staged"
-        }
     },
     "lint-staged": {
         "**/*.{js,jsx,ts,tsx,json,css,scss}": [
