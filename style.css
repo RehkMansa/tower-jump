@@ -45,3 +45,9 @@ h6 {
 #__next {
     isolation: isolate;
 }
+
+body {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
