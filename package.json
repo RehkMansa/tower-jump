@@ -28,7 +28,9 @@
         "kaboom": "^2000.2.10"
     },
     "husky": {
-        "pre-commit": "yarn lint-staged"
+        "hooks": {
+            "pre-commit": "yarn lint-staged"
+        }
     },
     "lint-staged": {
         "**/*.{js,jsx,ts,tsx,json,css,scss}": [
