@@ -17,7 +17,7 @@ background.scaleTo(Math.max(width() / bgImage.tex.width, height() / bgImage.tex.
 loadSprite("player", "/assets/gfx/player.svg");
 loadSprite("floor", "/assets/gfx/floor_0.png");
 
-const player = add([sprite("player"), scale(1), body(), area(), pos(0, 20)]);
+const player = add([sprite("player"), scale(1), body(), area(), pos(0, 20), "player"]);
 
 keyDown("right", () => {
     player.move(MOVE_SPEED, 0);
