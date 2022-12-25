@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import kaboom from "kaboom";
+import kaboom, { SpriteData } from "kaboom";
 
 kaboom({
     debug: true,
@@ -10,24 +10,23 @@ kaboom({
 loadSprite("player", "/assets/gfx/player.svg");
 loadSprite("floor", "/assets/gfx/floor_0.png");
 loadSprite("wall", "/assets/gfx/wall.png");
+let bgImage: SpriteData;
+
+(async () => {
+    // code that uses await goes here
+    bgImage = await loadSprite("background", "/assets/gfx/example.png");
+})();
 
 const FLOOR_HEIGHT = 48;
 const JUMP_FORCE = 800;
 const SPEED = 300;
 
-const bgImage = await loadSprite("background", "/assets/gfx/example.png");
-
 // @ts-ignore
 const centered = origin("center");
 // @ts-ignore
 const botLeft = origin("botleft");
-// const position  = origin("center");
 
-// declare background
-
-// load player files
-
-scene("game", () => {
+const setBgImage = () => {
     const background = add([
         sprite("background"),
         scale(1),
@@ -39,6 +38,10 @@ scene("game", () => {
     background.scaleTo(
         Math.max(width() / bgImage.tex.width, height() / bgImage.tex.height)
     );
+};
+
+scene("game", () => {
+    setBgImage();
 
     const player = add([
         sprite("player"),
@@ -99,27 +102,15 @@ scene("game", () => {
     // increment score every frame
     onUpdate(() => {
         score = score + 1;
-
-        // debug.log(sczzz);
         scoreLabel.text = Math.floor(score / 10).toString();
     });
 });
 
 scene("lose", (score) => {
-    const background = add([
-        sprite("background"),
-        scale(1),
-        pos(width() / 2, height() / 2),
-        fixed(),
-        centered,
-    ]);
+    setBgImage();
 
-    background.scaleTo(
-        Math.max(width() / bgImage.tex.width, height() / bgImage.tex.height)
-    );
     add([sprite("player"), pos(width() / 2, height() / 2 - 80), centered]);
 
-    // display score
     add([text(score), pos(width() / 2, height() / 2 + 20), centered]);
 
     // go back to game with space is pressed
